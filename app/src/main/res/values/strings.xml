@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">A Cripta do Feiticeiro</string>
+    <string name="bt_menu_tutorial">Tutorial</string>
+    <string name="bt_menu_novo">Nova Partida</string>
+    <string name="bt_continue">Continue</string>
+    <string name="bt_menu_carregar">Carregar Partida</string>
+    <string name="bt_skip">Pular</string>
+    <string name="label_equip">Equipamentos</string>
+    <string name="label_arma">Espada</string>
+    <string name="label_itens">Itens</string>
+    <string name="label_caracteristicas">Definindo seus Atributos</string>
+    <string name="label_habilidade">Habilidade</string>
+    <string name="label_energia">Energia</string>
+    <string name="label_sorte">Sorte</string>
+    <string name="label_descricao_habilidade">Sua habilidade reflete sua destreza com a espada e habilidade geral em combate. Quanto maior, melhor.</string>
+    <string name="label_descricao_energia">Sua energia reflete sua saúde e constituição gerais, bem como sua capacidade de sobreviver a ferimentos e provações físicas.</string>
+    <string name="label_descricao_sorte">Sua sorte mostra se você é ou não uma pessoa naturalmente sortuda. Quanto mais for testado, mais difícil será depender dela.</string>
+    <string name="label_gerar">Gerar</string>
+    <string name="personagem">Personagem</string>
+    <string name="erro_gerar">Favor gerar seus atributos.</string>
+
+    <string-array name="txt_intro">
+
+    <item>Chalice é uma pequena cidade às margens do Rio Prata no sopé das Colinas Moonstone.Tendo crescido a partir de um mermo
+    amontoado decasebres e cabanas, ela chegou a seu tamanho atual principalmente por que tornou-se um importante centro comercial
+    para mineiros à procura de ouro nas colinas. Foi o primeiro santuário para mercadores que viajavam a oeste das Terras Planas
+    a caminho de Silverton. Em Chalice, podiam descansar e fazer negócio sem temer ataques. Nela, havia várias estalagens e lugares
+    de entretenimento, e costumava estar entre as mais tumultuadas cidades de Allansia.</item>
+
+        <item>Mas agora ao olhar para fora da janela de seu quarto no segundo andar da Estalagem do Leão, não há qualquer sinal de
+    alegria. Há três semanas o céu tem estado escuro e ameaçador. As pessoas que recentemente chegaram a Chalice, vindas do
+    leste, falam de pestilêncua, peste, doença e fome aproximando-se inexoravelmente do oeste.</item>
+
+        <item>Ainda ontem Espalhou-se pela cidade uma história de que alguém teria descoberto onde estava a fonte do mal. Um Elfo, voando
+    para sil em sua Águia Gigante sobre o lado sul das Colinas Moonstone, notou uma profunda fissura no chão, da qual saía um vapor
+    de odor pútrido. Em volta da fissura, a grama estava escurecida e as árvores definhavam sem folhas. Quando voava sobre a fenda, disse
+    o Elfo, ele viu uma estranha mão ressequida e enrugada erguer-se da fissura, seu dedo indicador semelhante a uma garra apontando para
+    a águia. Uma rajada de energia surgiu da ponta do dedo e queimou boa parte da criatura gigantesca. Ela caiu no chão, mas o elfo
+    escapou com vida e voltou a Chalice para contar sua história.</item>
+
+        <item>Você é amigo do velho mago Yaztromo, que vive no lado sul da Floresta de Darkwood e resolve visitá-lo e relatar-lhe a
+    história do Elfo. Na agora já familiar e sombreada luz do dia, você esporeia seu cavalo para norte, na direção da torre de
+    Yaztromo, e antes do cair da noite você alcança o caminho coberto de vegetação que leva a ela. VocÊ desmonta rapidamente,
+    anda até a imensaporta de carvalho e toca o sino de bronze presono arco de pedra. Não há resposta mas, de repente, alguém bate
+    em seu ombro e vocÊ gira, segurando sua espada.</item>
+
+        <item>"Não há necessidade disso!" rosna o velho à sua frente, balançando o dedo em repreensão. "O que está fazendo aqui afinal,
+    perturbando minha paz e calma. Já não o vejo há mais de um ano e agora chega sem se anunciar, atravessa meu jardim de ervas
+    e toca meu sino alto o bastante para acordar os mortos. Bem, o que você quer?"</item>
+
+        <item>Você sorri, enquanto observa o velho mago rabugento demonstrando sua habitual hospitalidade. "E qual é a graça?" pergunta-lhe ele.
+    Sua expressão muda imediatamente e Yaztromo franze a testa quando vÊ o olhar de preocupação em seu rosto. "Acho que deveríamos subir
+    para que possa me contar o que o está perturbando. Presumo que algo o esteja perturbando, pois tenho certeza de que não me visitaria
+    por qalquer outro motivo, e creio que tenha alguma coisa a ver com este infernal céu escuro!"</item>
+
+        <item>Quando finalmente conta a Yaztromo a história do Elfo, ele permanece sentado em sua velha cadeira de carvalho, em silêncio,
+    o rosto tão sombrio quanto uma cova. Ele finalmente fala, suspirando a cada palavra. "Então meus piores medos se realizaram.
+    O necromante ergueu-se. Aqueles tolos! Sua ganância pode agora trazer o fim à vida em Allansia.  menos que..." Totalmente intrigado
+    pelos murmúrios de Yaztromo, você lhe pede para explicar. Como se descrevesse um pesadelo, Yaztromo reconta a lenda do maléfico
+    necromante Razaak, que ameaçou Allansia há uma centena de anos.</item>
+
+        <item>Apesar de ele ter adquirido suas habilidades primeiro como aprendiz de um mago do Bem, Razaak foi desde cedo atraído
+    pelo negro poder do Mal. Ele percebeu que poderia tornar-se um grande feiticeiro que, algum dia, seria capaz de fazer
+    todos obedecê-lo. Ele não tinha desejo ou intenção de usar sua magia para ajudar Allansia, ele queria que o reino
+    ajoelhasse a seus pés. Ele viajou para uma parte remota da Allansia oriental e lá praticou seus atos arcanos. Rapidamente
+    progrediu através dos níveis da magia negra, passando de mero aprendiz até feiticeiro, quando finalmente seus poderes
+    eram tão grandes que ele se tornou um necromante, tendo vivido ps últimos quarenta anos na solidão. Então Razaak enviou
+    mensagens a todos os nobres de Allansia, exigindo que o reconhecessem como governante. Eles o ignoraram a princípio,
+    pois ninguém jamais ouvira falar nele. Razaak ficou enraivecido e, em retaliação, trouxe peste e pestilência para as
+    províncias dos nobres, dando-lhes até a lua cheia para que eles o reconhecessem como líder.</item>
+
+        <item>Muitos guerreiros ofereceram-se para tentar matar Razaak, e muitos morreram tentando. Mas um bravo homem chamado
+    Kull teve sucesso e salvou Allansia. Ele tinha uma espada que encontrara nas Colinas Moonstone, presa à mão de um
+    esqueleto, erguendo-se de um lago coberto de brumas, que atravessava com uma jangada. Kull ficou mesmerizado pela
+    magnífica beleza da espadae imediatamente a quis para si. Ele a pegou e o esqueleto não fez qualquer menção de
+    evitar seu ato, simplesmente afundando nas profundezas lamacentas do lago assim que soltou a espada.</item>
+
+        <item>Kull estava tão envolvido pela espada que nada mais lhe importava Voltou com a jangada para a margem e começou
+    a testar sua nova arma. Ele descobriu que nada poderia ferir-lhe o corte e que poderia cortar com facilidade através
+    de uma armadura de placas de metal.</item>
+
+        <item>Ele não percebeu que a espada já pertencera a Razaak e que era a única arma em todo o mundo com poder para
+    matá-lo. Razaak, para tornar-se um necromante, teve de livrar-se de todas as suas armas, mas não havia poder suficiente
+    no mundo capaz de destruir sua espada maldita. Na tentativa de livrar-se da espada, Razaak jogou-a no lago, mas
+    ela voltou à superficie pela mão do esqueleto. Por anos o esqueleto segurou a espada, até Kull vê-la e pegá-la
+    para si. Então, uma volta do destino levou o invencível Kull até Razaak e este foi morto por Kull, pela espada que
+    outrora fora sua. Mas no momento em que Razaak foi morto, a carne de Kull desgrudou-se de seus ossos e caiu numa
+    pilha de pó em volta de seus esqueléticos pés. A magia de Razaak o condenara a uma eterna existência de pesadelo
+    como esqueleto, incapaz de soltar a espada.</item>
+
+        <item>Ele pegou um manto com capuz e fugiu para as Colinas Moonstone, e diz-se que, até hoje, ele vaga constantemente
+    pelo mesmo lago com sua jangada, segurando a espada, incapaz de descansar até que algém a tome dele. O corpo de Razaak
+    foi posto num sarcófago de pedra e sepultado na fissura das colinas meridionais. A cripta foi selada por um feiticeiro
+    do Bem, que decretou que ela deveria pernanecer selada por cento e dez anos, senão o necromante se ergueria com uma
+    horda de mortos-vivos para destruir toda a vida.</item>
+
+        <item>"Só posso presumir", conclui Yaztromo com um profundo suspiro, "que caçadores de tesouro encontraram a cripta
+    do necromante e, desavisados, abriram-na. Razaak deve ser destruído antes que seja tarde demais. Ah, mas vai ser
+    muito difícil. Precisamos encontrar a espada de Razaak e vários talismãs e amuletos que o protegerão da magia
+    do necromante... Posso confiar que você se oferece voluntariamente para esta vultosa tarefa?"</item>
+
+        <item>Lentamente, você assente com a cabeça, apesar de seu cérebro ainda estar tonto pela história de Razaak e do
+    pobre Kull contada por Yaztromo. "Ótimo", continua ele. "Agora, não se preocupe quanto à espada: não vou deixá-lo
+    tornar-se um esqueleto. Simplesmente traga-a para cá e, nesse meio tempo, chamarei algumas pessoas que podem nos
+    ajudar. Não há tempo a perder; você deve encontrar o lago das Colinas Moonstone. Descanse bem esta noite e parta
+    à primeira luz do dia - a pouca que ainda há..."</item>
+
+    </string-array>
+
+
+</resources>
