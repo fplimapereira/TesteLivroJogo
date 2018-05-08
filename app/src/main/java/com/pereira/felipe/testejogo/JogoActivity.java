@@ -14,6 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
@@ -38,7 +40,8 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
     private Toolbar toolbar;
     private Button acao;
     private TextSwitcher contexto;
-    private Spinner escolhas;
+   // private Spinner escolhas;
+    private RadioGroup rg;
     private JogoPojo evento;
     private BancoCore banco;
     private boolean init = true;
@@ -50,10 +53,12 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jogo);
+        setContentView(R.layout.activity_scroll_jogo);
         acao = (Button) findViewById(R.id.bt_acao);
         contexto = (TextSwitcher) findViewById(R.id.tx_evento);
-        escolhas = (Spinner) findViewById(R.id.spinner);
+        contexto.setMeasureAllChildren(false);
+       // escolhas = (Spinner) findViewById(R.id.spinner);
+        rg = (RadioGroup) findViewById(R.id.rg);
         loadAnimation();
         setFactory();
         setListener();
@@ -115,9 +120,17 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
             list.add(evento.getAcao_um());
             if (evento.getAcao_dois() != null) {list.add(evento.getAcao_dois());}
             if (evento.getAcao_tres() != null) {list.add(evento.getAcao_tres());}
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+            for(int i =0; i < list.size() ;i++){
+                RadioButton rb = new RadioButton(this);
+                rb.setId(i);
+                rb.setText(list.get(i));
+                rg.addView(rb);
+            }
+            /*
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             escolhas.setAdapter(adapter);
-            escolhas.setOnItemSelectedListener(this);
+            escolhas.setOnItemSelectedListener(this);*/
         }else{
             verificaTeste(evento.getTeste());
         }
@@ -153,6 +166,23 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
         acao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int p = rg.getCheckedRadioButtonId();
+
+                switch (p){
+                    case 0:
+                        ponteiro = evento.getPonteiro_um();
+                        break;
+                    case 1:
+                        ponteiro = evento.getPonteiro_dois();
+                        break;
+                    case 2:
+                        ponteiro = evento.getPonteiro_tres();
+                        break;
+                    default:
+                        break;
+                }
+                rg.clearCheck();
+                rg.removeAllViews();
                evento = banco.getEvento(ponteiro);
                 verificaEvento(evento);
             }
