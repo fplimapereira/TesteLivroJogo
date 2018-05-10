@@ -4,16 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -35,12 +38,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class JogoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class JogoActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Button acao;
     private TextSwitcher contexto;
-   // private Spinner escolhas;
     private RadioGroup rg;
     private JogoPojo evento;
     private BancoCore banco;
@@ -48,14 +50,16 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
     private int ponteiro;
     private SharedPreferences personagem;
     private Random r;
+    private TextView resultado;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll_jogo);
-        acao = (Button) findViewById(R.id.bt_acao);
-        contexto = (TextSwitcher) findViewById(R.id.tx_evento);
+        acao =  findViewById(R.id.bt_acao);
+        contexto =  findViewById(R.id.tx_evento);
+        resultado =  findViewById(R.id.tx_resultado);
         contexto.setMeasureAllChildren(false);
        // escolhas = (Spinner) findViewById(R.id.spinner);
         rg = (RadioGroup) findViewById(R.id.rg);
@@ -125,33 +129,42 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
                 rb.setId(i);
                 rb.setText(list.get(i));
                 rg.addView(rb);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((LinearLayout.LayoutParams)rb.getLayoutParams());
+                params.setMargins(0,0,0,48);
+                rb.setLayoutParams(params);
+                rb.requestLayout();
             }
-            /*
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            escolhas.setAdapter(adapter);
-            escolhas.setOnItemSelectedListener(this);*/
         }else{
             verificaTeste(evento.getTeste());
         }
     }
 
     private void verificaTeste(String teste) {
-        personagem = getSharedPreferences("personagem", Context.MODE_PRIVATE);
+        personagem = getSharedPreferences("Personagem", Context.MODE_PRIVATE);
         r = new Random();
         switch (teste){
             case "habilidade":
                 int habilidade = personagem.getInt("Habilidade", 0);
-                if(habilidade <= r.nextInt(13)){
-                    ponteiro = evento.getPonteiro_dois();}
-                else {ponteiro = evento.getPonteiro_um();}
+                if(habilidade < r.nextInt(13)){
+                    ponteiro = evento.getPonteiro_dois();
+                    resultado.setText("Falha no teste de habilidade");
+                    resultado.setTextColor(Color.parseColor("#f2000d"));}
+                else {
+                    ponteiro = evento.getPonteiro_um();
+                    resultado.setText("Sucesso no teste de habilidade");
+                    resultado.setTextColor(Color.parseColor("#00f20d"));}
                 break;
 
             case "sorte":
                 int sorte = personagem.getInt("Sorte", 0);
-                if(sorte <= r.nextInt(13)){
-                    ponteiro = evento.getPonteiro_dois();}
-                else {ponteiro = evento.getPonteiro_um();}
+                if(sorte < r.nextInt(13)){
+                    ponteiro = evento.getPonteiro_dois();
+                    resultado.setText("Falha no teste de sorte");
+                    resultado.setTextColor(Color.parseColor("#f2000d"));}
+                else {
+                    ponteiro = evento.getPonteiro_um();
+                    resultado.setText("Sucesso no teste de habilidade");
+                    resultado.setTextColor(Color.parseColor("#00f20d"));}
                 sorte--;
                 SharedPreferences.Editor editor = personagem.edit();
                 editor.putInt("Sorte", sorte);
@@ -166,50 +179,33 @@ public class JogoActivity extends AppCompatActivity implements AdapterView.OnIte
         acao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int p = rg.getCheckedRadioButtonId();
 
-                switch (p){
-                    case 0:
-                        ponteiro = evento.getPonteiro_um();
-                        break;
-                    case 1:
-                        ponteiro = evento.getPonteiro_dois();
-                        break;
-                    case 2:
-                        ponteiro = evento.getPonteiro_tres();
-                        break;
-                    default:
-                        break;
+                if(evento.getTeste() == null){
+                    int p = rg.getCheckedRadioButtonId();
+
+                    switch (p){
+                        case 0:
+                            ponteiro = evento.getPonteiro_um();
+                            break;
+                        case 1:
+                            ponteiro = evento.getPonteiro_dois();
+                            break;
+                        case 2:
+                            ponteiro = evento.getPonteiro_tres();
+                            break;
+                        default:
+                            break;
+                    }
+                    rg.clearCheck();
+                    rg.removeAllViews();
+
                 }
-                rg.clearCheck();
-                rg.removeAllViews();
-               evento = banco.getEvento(ponteiro);
+                else{
+                    resultado.setVisibility(View.VISIBLE);
+                }
+                evento = banco.getEvento(ponteiro);
                 verificaEvento(evento);
             }
         });
-    }
-
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch (i){
-            case 0:
-                ponteiro = evento.getPonteiro_um();
-                break;
-            case 1:
-                ponteiro = evento.getPonteiro_dois();
-                break;
-            case 2:
-                ponteiro = evento.getPonteiro_tres();
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 }
