@@ -1,46 +1,36 @@
 package com.pereira.felipe.testejogo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 import android.widget.ViewSwitcher;
-
 import com.pereira.felipe.banco.BancoCore;
 import com.pereira.felipe.banco.JogoPojo;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.pereira.felipe.banco.Utils.RollDice;
+
 public class JogoActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private Button acao;
     private TextSwitcher contexto;
     private RadioGroup rg;
@@ -51,7 +41,7 @@ public class JogoActivity extends AppCompatActivity {
     private SharedPreferences personagem;
     private Random r;
     private TextView resultado;
-
+    private int vx = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +51,6 @@ public class JogoActivity extends AppCompatActivity {
         contexto =  findViewById(R.id.tx_evento);
         resultado =  findViewById(R.id.tx_resultado);
         contexto.setMeasureAllChildren(false);
-       // escolhas = (Spinner) findViewById(R.id.spinner);
         rg = (RadioGroup) findViewById(R.id.rg);
         loadAnimation();
         setFactory();
@@ -112,6 +101,7 @@ public class JogoActivity extends AppCompatActivity {
         if (init) {
             evento = banco.getEvento(1);
             verificaEvento(evento);
+            init = false;
         }
 
 
@@ -142,22 +132,26 @@ public class JogoActivity extends AppCompatActivity {
     private void verificaTeste(String teste) {
         personagem = getSharedPreferences("Personagem", Context.MODE_PRIVATE);
         r = new Random();
+        Log.d("Teste repeticao", " ========================>> " + vx + "<<===================");
+        vx++;
         switch (teste){
             case "habilidade":
                 int habilidade = personagem.getInt("Habilidade", 0);
-                if(habilidade < r.nextInt(13)){
+                if(habilidade < RollDice()){
                     ponteiro = evento.getPonteiro_dois();
                     resultado.setText("Falha no teste de habilidade");
-                    resultado.setTextColor(Color.parseColor("#f2000d"));}
+                    resultado.setTextColor(Color.parseColor("#f2000d"));
+                     Log.d("Teste repeticao", "falha no teste " + vx);}
                 else {
                     ponteiro = evento.getPonteiro_um();
                     resultado.setText("Sucesso no teste de habilidade");
-                    resultado.setTextColor(Color.parseColor("#00f20d"));}
+                    resultado.setTextColor(Color.parseColor("#00f20d"));
+                    Log.d("Teste repeticao", "sucesso no teste " + vx);}
                 break;
 
             case "sorte":
                 int sorte = personagem.getInt("Sorte", 0);
-                if(sorte < r.nextInt(13)){
+                if(sorte < RollDice()){
                     ponteiro = evento.getPonteiro_dois();
                     resultado.setText("Falha no teste de sorte");
                     resultado.setTextColor(Color.parseColor("#f2000d"));}
@@ -170,6 +164,7 @@ public class JogoActivity extends AppCompatActivity {
                 editor.putInt("Sorte", sorte);
                 editor.apply();
                 break;
+
         }
 
     }
@@ -198,13 +193,21 @@ public class JogoActivity extends AppCompatActivity {
                     }
                     rg.clearCheck();
                     rg.removeAllViews();
-
+                    evento = banco.getEvento(ponteiro);
+                    verificaEvento(evento);
                 }
+
+                else if(evento.getTeste().equals("luta")){
+                    Intent i = new Intent(JogoActivity.this, LutaActivity.class);
+                    i.putExtra("Indice",evento.getBatalha());
+                    startActivity(i);
+                }
+
                 else{
                     resultado.setVisibility(View.VISIBLE);
+                    evento = banco.getEvento(ponteiro);
+                    verificaEvento(evento);
                 }
-                evento = banco.getEvento(ponteiro);
-                verificaEvento(evento);
             }
         });
     }

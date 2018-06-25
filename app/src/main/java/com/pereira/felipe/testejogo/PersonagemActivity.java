@@ -51,6 +51,7 @@ public class PersonagemActivity extends AppCompatActivity {
             editor.apply();
             Intent i = new Intent(PersonagemActivity.this, HistoriaActivity.class);
             startActivity(i);
+            finish();
         }
         else{
             AlertDialog.Builder alert = new AlertDialog.Builder(this);

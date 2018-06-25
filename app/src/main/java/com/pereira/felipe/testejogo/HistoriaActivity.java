@@ -67,6 +67,7 @@ public class HistoriaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(HistoriaActivity.this, JogoActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,7 @@ public class HistoriaActivity extends AppCompatActivity {
                 if(indice == paragrafos) {
                     Intent i = new Intent(HistoriaActivity.this, JogoActivity.class);
                     startActivity(i);
+                    finish();
                 }else{
                     ts.setText(intro[indice]);
                 }
