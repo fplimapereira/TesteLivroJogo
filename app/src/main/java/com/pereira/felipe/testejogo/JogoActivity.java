@@ -109,24 +109,23 @@ public class JogoActivity extends AppCompatActivity {
 
     private void verificaEvento(JogoPojo evento) {
         contexto.setText(evento.getContexto());
-        if (evento.getTeste() == null) {
             List<String> list = new ArrayList<>();
-            list.add(evento.getAcao_um());
-            if (evento.getAcao_dois() != null) {list.add(evento.getAcao_dois());}
-            if (evento.getAcao_tres() != null) {list.add(evento.getAcao_tres());}
-            for(int i =0; i < list.size() ;i++){
-                RadioButton rb = new RadioButton(this);
-                rb.setId(i);
-                rb.setText(list.get(i));
-                rg.addView(rb);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((LinearLayout.LayoutParams)rb.getLayoutParams());
-                params.setMargins(0,0,0,48);
-                rb.setLayoutParams(params);
-                rb.requestLayout();
+            if(evento.getTeste() == null){
+                list.add(evento.getAcao_um());
+                if (evento.getAcao_dois() != null) {list.add(evento.getAcao_dois());}
+                if (evento.getAcao_tres() != null) {list.add(evento.getAcao_tres());}
+                for(int i =0; i < list.size() ;i++){
+                    RadioButton rb = new RadioButton(this);
+                    rb.setId(i);
+                    rb.setText(list.get(i));
+                    rg.addView(rb);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((LinearLayout.LayoutParams)rb.getLayoutParams());
+                    params.setMargins(0,0,0,48);
+                    rb.setLayoutParams(params);
+                    rb.requestLayout();
+                }
             }
-        }else{
-            verificaTeste(evento.getTeste());
-        }
+
     }
 
     private void verificaTeste(String teste) {
@@ -204,6 +203,7 @@ public class JogoActivity extends AppCompatActivity {
                 }
 
                 else{
+                    verificaTeste(evento.getTeste());
                     resultado.setVisibility(View.VISIBLE);
                     evento = banco.getEvento(ponteiro);
                     verificaEvento(evento);
