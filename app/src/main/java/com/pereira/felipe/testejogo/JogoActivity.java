@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,7 +17,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 import com.pereira.felipe.banco.BancoCore;
 import com.pereira.felipe.banco.JogoPojo;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.pereira.felipe.banco.Utils.RollDice;
+import static com.pereira.felipe.banco.Utils.rollDice;
 
 public class JogoActivity extends AppCompatActivity {
 
@@ -41,7 +39,6 @@ public class JogoActivity extends AppCompatActivity {
     private SharedPreferences personagem;
     private Random r;
     private TextView resultado;
-    private int vx = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,26 +128,24 @@ public class JogoActivity extends AppCompatActivity {
     private void verificaTeste(String teste) {
         personagem = getSharedPreferences("Personagem", Context.MODE_PRIVATE);
         r = new Random();
-        Log.d("Teste repeticao", " ========================>> " + vx + "<<===================");
-        vx++;
         switch (teste){
             case "habilidade":
                 int habilidade = personagem.getInt("Habilidade", 0);
-                if(habilidade < RollDice()){
+                if(habilidade < rollDice()){
                     ponteiro = evento.getPonteiro_dois();
                     resultado.setText("Falha no teste de habilidade");
                     resultado.setTextColor(Color.parseColor("#f2000d"));
-                     Log.d("Teste repeticao", "falha no teste " + vx);}
+                    }
                 else {
                     ponteiro = evento.getPonteiro_um();
                     resultado.setText("Sucesso no teste de habilidade");
                     resultado.setTextColor(Color.parseColor("#00f20d"));
-                    Log.d("Teste repeticao", "sucesso no teste " + vx);}
+                    }
                 break;
 
             case "sorte":
                 int sorte = personagem.getInt("Sorte", 0);
-                if(sorte < RollDice()){
+                if(sorte < rollDice()){
                     ponteiro = evento.getPonteiro_dois();
                     resultado.setText("Falha no teste de sorte");
                     resultado.setTextColor(Color.parseColor("#f2000d"));}

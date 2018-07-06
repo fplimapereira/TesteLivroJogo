@@ -9,7 +9,7 @@ public class Utils {
 
     private  static List<Integer> Dice;
 
-    public static int RollDice(){
+    public static int rollDice(){
         Dice = new ArrayList();
         for(int x = 2; x <= 12; x++){
             Dice.add(x);

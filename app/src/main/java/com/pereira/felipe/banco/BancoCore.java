@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Felipe on 24/08/2017.
@@ -122,6 +124,29 @@ public class BancoCore extends SQLiteOpenHelper {
         }
 
         return evento;
+    }
+
+    public List<OponentePojo> getOponentes(int batalha){
+        List<OponentePojo> oponentes = new ArrayList<OponentePojo>();
+        Cursor cursor = null;
+        String[] args = new String[]{String.valueOf(batalha)};
+
+        try {
+            openDataBase();
+            cursor = mDataBase.rawQuery("SELECT * FROM CRIATURA WHERE POSICAO = ?", args);
+            if (cursor.moveToFirst()){
+                do {
+                    OponentePojo oponente = new OponentePojo(cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(5), cursor.getString(5));
+                    oponentes.add(oponente);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return oponentes;
     }
 
 }
