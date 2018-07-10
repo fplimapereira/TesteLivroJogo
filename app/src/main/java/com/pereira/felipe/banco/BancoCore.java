@@ -133,7 +133,7 @@ public class BancoCore extends SQLiteOpenHelper {
 
         try {
             openDataBase();
-            cursor = mDataBase.rawQuery("SELECT * FROM CRIATURA WHERE POSICAO = ?", args);
+            cursor = mDataBase.rawQuery("SELECT * FROM CRIATURA WHERE BATALHA_ID = ?", args);
             if (cursor.moveToFirst()){
                 do {
                     OponentePojo oponente = new OponentePojo(cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(5), cursor.getString(5));
