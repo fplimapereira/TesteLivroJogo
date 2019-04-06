@@ -13,13 +13,17 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import static com.pereira.felipe.banco.Utils.createDice;
+import static com.pereira.felipe.banco.Utils.createDoubleDice;
+
 public class PersonagemActivity extends AppCompatActivity {
 
     private TextView energia, habilidade, sorte;
     private Button gerar, adiante;
     Random r;
     Boolean valida = false;
-    SharedPreferences personagem;
+    private SharedPreferences personagem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,15 @@ public class PersonagemActivity extends AppCompatActivity {
             personagem = getSharedPreferences(getString(R.string.personagem), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = personagem.edit();
             editor.putInt("Habilidade", Integer.valueOf(habilidade.getText().toString()));
+            editor.putInt("HabTotal", Integer.valueOf(habilidade.getText().toString()));
             editor.putInt("Energia", Integer.valueOf(energia.getText().toString()));
+            editor.putInt("EneTotal", Integer.valueOf(energia.getText().toString()));
             editor.putInt("Sorte", Integer.valueOf(sorte.getText().toString()));
+            editor.putInt("SorteTotal", Integer.valueOf(sorte.getText().toString()));
             editor.apply();
             Intent i = new Intent(PersonagemActivity.this, HistoriaActivity.class);
+            createDice();
+            createDoubleDice();
             startActivity(i);
             finish();
         }

@@ -6,9 +6,9 @@ public class OponentePojo {
     private int energia;
     private int habilidade;
     private int vitoria;
-    private String derrota;
+    private int derrota;
 
-    public OponentePojo(String nome, int energia, int habilidade, int vitoria, String derrota) {
+    public OponentePojo(String nome, int energia, int habilidade, int vitoria, int derrota) {
         this.nome = nome;
         this.energia = energia;
         this.habilidade = habilidade;
@@ -48,11 +48,11 @@ public class OponentePojo {
         this.vitoria = vitoria;
     }
 
-    public String getDerrota() {
+    public int getDerrota() {
         return derrota;
     }
 
-    public void setDerrota(String derrota) {
+    public void setDerrota(int derrota) {
         this.derrota = derrota;
     }
 }

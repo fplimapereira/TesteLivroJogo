@@ -4,27 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    tools:context="com.pereira.felipe.testejogo.ItensActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_equip"
-        android:textSize="18dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp" />
+    android:background="@drawable/fundo_intro"
+    tools:context="com.pereira.felipe.testejogo.StatusActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="0dp"
         android:layout_height="168dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -33,26 +21,184 @@
         android:layout_marginEnd="8dp" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_arma"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/label_itens"
-        android:layout_marginBottom="8dp"
-        android:textSize="18dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txVida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Energia"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pgVida"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txVida" />
+
+    <TextView
+        android:id="@+id/tvHab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Habilidade"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pgVida" />
+
+    <ProgressBar
+        android:id="@+id/pgHab"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHab" />
+
+    <TextView
+        android:id="@+id/tvLbSorte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Sorte"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pgHab" />
+
+    <ProgressBar
+        android:id="@+id/pgSorte"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLbSorte" />
+
+    <TextView
+        android:id="@+id/tvEnergia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:text="00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgVida"
+        app:layout_constraintStart_toEndOf="@+id/txVida" />
+
+    <TextView
+        android:id="@+id/tvBarra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="/"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgVida"
+        app:layout_constraintStart_toEndOf="@+id/tvEnergia" />
+
+    <TextView
+        android:id="@+id/tvEneTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgVida"
+        app:layout_constraintStart_toEndOf="@+id/tvBarra" />
+
+    <TextView
+        android:id="@+id/tvHabilidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:text="00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgHab"
+        app:layout_constraintStart_toEndOf="@+id/tvHab" />
+
+    <TextView
+        android:id="@+id/tvBarra2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="/"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgHab"
+        app:layout_constraintStart_toEndOf="@+id/tvHabilidade" />
+
+    <TextView
+        android:id="@+id/tvHabTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgHab"
+        app:layout_constraintStart_toEndOf="@+id/tvBarra2" />
+
+    <TextView
+        android:id="@+id/tvSorte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:text="00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgSorte"
+        app:layout_constraintStart_toEndOf="@+id/tvLbSorte" />
+
+    <TextView
+        android:id="@+id/tvBarra3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="/"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgSorte"
+        app:layout_constraintStart_toEndOf="@+id/tvSorte" />
+
+    <TextView
+        android:id="@+id/tvSorteTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/pgSorte"
+        app:layout_constraintStart_toEndOf="@+id/tvBarra3" />
 
 </android.support.constraint.ConstraintLayout>

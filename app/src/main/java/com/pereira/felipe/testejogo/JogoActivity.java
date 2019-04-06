@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,6 +31,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.pereira.felipe.banco.Utils.rollDice;
+import static com.pereira.felipe.banco.Utils.rollDices;
 
 public class JogoActivity extends AppCompatActivity {
 
@@ -39,6 +45,8 @@ public class JogoActivity extends AppCompatActivity {
     private SharedPreferences personagem;
     private Random r;
     private TextView resultado;
+    private Toolbar tBar;
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +56,37 @@ public class JogoActivity extends AppCompatActivity {
         contexto =  findViewById(R.id.tx_evento);
         resultado =  findViewById(R.id.tx_resultado);
         contexto.setMeasureAllChildren(false);
-        rg = (RadioGroup) findViewById(R.id.rg);
+        rg =  findViewById(R.id.rg);
         loadAnimation();
         setFactory();
         setListener();
+        tBar = findViewById(R.id.toolbar);
+        setSupportActionBar(tBar);
         banco = new BancoCore(this);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.status:
+                Intent i = new Intent(JogoActivity.this, StatusActivity.class);
+                startActivity(i);
+                return true;
 
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-    void loadAnimation() {
+     void loadAnimation() {
         Animation fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
         Animation fadeOut = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
         contexto.setInAnimation(fadeIn);
@@ -101,6 +129,11 @@ public class JogoActivity extends AppCompatActivity {
             init = false;
         }
 
+        if(player == null){
+            player = MediaPlayer.create(this, R.raw.background);
+        }
+        player.start();
+        player.setLooping(true);
 
     }
 
@@ -131,7 +164,7 @@ public class JogoActivity extends AppCompatActivity {
         switch (teste){
             case "habilidade":
                 int habilidade = personagem.getInt("Habilidade", 0);
-                if(habilidade < rollDice()){
+                if(habilidade < rollDices()){
                     ponteiro = evento.getPonteiro_dois();
                     resultado.setText("Falha no teste de habilidade");
                     resultado.setTextColor(Color.parseColor("#f2000d"));
@@ -139,13 +172,13 @@ public class JogoActivity extends AppCompatActivity {
                 else {
                     ponteiro = evento.getPonteiro_um();
                     resultado.setText("Sucesso no teste de habilidade");
-                    resultado.setTextColor(Color.parseColor("#00f20d"));
+                    resultado.setTextColor(Color.parseColor("#517f47"));
                     }
                 break;
 
             case "sorte":
                 int sorte = personagem.getInt("Sorte", 0);
-                if(sorte < rollDice()){
+                if(sorte < rollDices()){
                     ponteiro = evento.getPonteiro_dois();
                     resultado.setText("Falha no teste de sorte");
                     resultado.setTextColor(Color.parseColor("#f2000d"));}
@@ -170,6 +203,7 @@ public class JogoActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(evento.getTeste() == null){
+                    resultado.setVisibility(View.GONE);
                     int p = rg.getCheckedRadioButtonId();
 
                     switch (p){
@@ -194,7 +228,32 @@ public class JogoActivity extends AppCompatActivity {
                 else if(evento.getTeste().equals("luta")){
                     Intent i = new Intent(JogoActivity.this, LutaActivity.class);
                     i.putExtra("Indice",evento.getBatalha());
-                    startActivity(i);
+                    startActivityForResult(i, 2);
+                }
+
+                else if(evento.getTeste().equals("aleatorio")){
+                    int i = rollDice();
+
+                    switch (i){
+                        case 1:
+                            ponteiro = evento.getPonteiro_um();
+                            break;
+
+                        case 2:
+                            ponteiro = evento.getPonteiro_dois();
+                            break;
+
+                        default:
+                            ponteiro = evento.getPonteiro_tres();
+                            break;
+
+                    }
+
+                    rg.clearCheck();
+                    rg.removeAllViews();
+                    evento = banco.getEvento(ponteiro);
+                    verificaEvento(evento);
+
                 }
 
                 else{
@@ -205,5 +264,27 @@ public class JogoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int valor= 0;
+
+        switch(requestCode) {
+            case 2:
+                if (resultCode == RESULT_OK) {
+                    resultado.setVisibility(View.GONE);
+                    valor = data.getExtras().getInt("result");
+                    evento = banco.getEvento(valor);
+                    verificaEvento(evento);
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        player.release();
+        player = null;
     }
 }

@@ -3,6 +3,7 @@ package com.pereira.felipe.testejogo;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ public class HistoriaActivity extends AppCompatActivity {
     TextSwitcher ts;
     int paragrafos, indice;
     String[] intro = null;
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class HistoriaActivity extends AppCompatActivity {
             public View makeView() {
                 TextView myText = new TextView(HistoriaActivity.this);
                 myText.setGravity(Gravity.TOP | Gravity.LEFT);
-                myText.setTextSize(15);
+                myText.setTextSize(24);
                 myText.setTextColor(Color.BLACK);
                 return myText;
             }
@@ -83,5 +85,23 @@ public class HistoriaActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if(player == null){
+            player = MediaPlayer.create(this, R.raw.prologue);
+        }
+        player.setVolume(0.7f, 0.7f);
+        player.start();
+        player.setLooping(true);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        player.release();
+        player = null;
     }
 }

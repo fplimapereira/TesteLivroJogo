@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">A Cripta do Feiticeiro</string>
-    <string name="bt_menu_tutorial">Tutorial</string>
+    <string name="bt_menu_tutorial">Sobre o Aplicativo</string>
     <string name="bt_menu_novo">Nova Partida</string>
     <string name="bt_continue">Continue</string>
     <string name="bt_menu_carregar">Carregar Partida</string>
